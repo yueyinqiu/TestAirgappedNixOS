@@ -3,6 +3,10 @@
 {
   imports = [ ]; 
   services.openssh.enable = true;
-  users.users.root.initialPassword = "password";
+  
+  users.users.user = {
+    isNormalUser = true;
+  };
+
   system.stateVersion = "26.05";
 }
