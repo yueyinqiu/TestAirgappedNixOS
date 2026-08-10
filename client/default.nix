@@ -9,6 +9,7 @@
   environment.systemPackages = [
     pkgs.git
   ];
+  services.openssh.enable = true;
 
   users.users.user = {
     isNormalUser = true;
