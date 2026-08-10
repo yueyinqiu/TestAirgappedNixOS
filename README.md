@@ -15,11 +15,13 @@ mv result run/server/vm
 ```
 cd run/server
 QEMU_OPTS="-netdev socket,id=net0,listen=:1234 -device virtio-net-pci,netdev=net0" ./vm/bin/run-nixos-vm
+# keep it running
 ```
 
 ```
 cd run/client
 QEMU_OPTS="-netdev socket,id=net0,connect=localhost:1234 -device virtio-net-pci,netdev=net0" ./vm/bin/run-nixos-vm
+# keep it running
 ```
 
 3. Run the following command in the client (username: `client`, password: `1`)
@@ -28,5 +30,5 @@ QEMU_OPTS="-netdev socket,id=net0,connect=localhost:1234 -device virtio-net-pci,
 git clone https://github.com/yueyinqiu/TestAirgappedNixOS.git
 cd TestAirgappedNixOS
 
-bash ./client/run.sh
+bash ./client/run.sh    # It will connect the server twice. The password is also `1`.
 ```
