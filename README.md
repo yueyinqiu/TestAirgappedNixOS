@@ -20,3 +20,7 @@ QEMU_OPTS="-netdev socket,id=net0,listen=:1234 -device virtio-net-pci,netdev=net
 
 在 client ：
 
+```
+git clone https://github.com/yueyinqiu/TestAirgappedNixOS.git
+nix derivation show .#homeConfigurations.home.activationPackage
+```

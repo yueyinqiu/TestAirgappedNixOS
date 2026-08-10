@@ -1,4 +1,8 @@
-{ ... }: {
+{ pkgs, ... }: {
+  home.packages = [
+    pkgs.btop
+  ];
+
   home.username = "server";
   home.homeDirectory = "/home/server";
   programs.home-manager.enable = true;

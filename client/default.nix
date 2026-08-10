@@ -8,6 +8,7 @@
   ];
   environment.systemPackages = [
     pkgs.git
+    pkgs.jq
   ];
   services.openssh.enable = true;
 
