@@ -15,5 +15,10 @@
         system = "x86_64-linux";
         modules = [ ./server ];
       };
+
+      nixosConfigurations.client = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [ ./client ];
+      };
     };
 }
