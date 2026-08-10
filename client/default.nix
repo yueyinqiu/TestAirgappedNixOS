@@ -11,11 +11,16 @@
   ];
   services.openssh.enable = true;
 
-  users.users.user = {
+  users.users.client = {
     isNormalUser = true;
     initialPassword = "1";
     extraGroups = [ "wheel" ];
   };
+
+  networking.interfaces.eth1.ipv4.addresses = [ {
+    address = "192.168.100.11";
+    prefixLength = 24;
+  }];
 
   system.stateVersion = "26.05";
 }

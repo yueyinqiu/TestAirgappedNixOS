@@ -8,10 +8,10 @@ mv result run/server/vm
 
 ```
 cd run/client
-./vm/bin/run-nixos-vm
+QEMU_OPTS="-netdev socket,id=net0,listen=:1234 -device virtio-net-pci,netdev=net0" ./vm/bin/run-nixos-vm
 ```
 
 ```
 cd run/server
-./vm/bin/run-nixos-vm
+QEMU_OPTS="-netdev socket,id=net0,connect=localhost:1234 -device virtio-net-pci,netdev=net0" ./vm/bin/run-nixos-vm
 ```
