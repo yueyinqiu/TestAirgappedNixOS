@@ -8,9 +8,13 @@
   ];
   environment.systemPackages = [
     pkgs.git
-    pkgs.openssh
   ];
-  users.users.root.initialPassword = "password";
+
+  users.users.user = {
+    isNormalUser = true;
+    initialPassword = "password";
+    extraGroups = [ "wheel" ];
+  };
 
   # VM-only settings: second NIC (eth1) on the shared bridge so we can
   # reach other VMs. The default SLiRP NIC (eth0) is kept for convenience.
