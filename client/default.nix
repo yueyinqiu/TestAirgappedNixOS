@@ -13,7 +13,7 @@
 
   users.users.user = {
     isNormalUser = true;
-    initialPassword = "password";
+    initialPassword = "1";
     extraGroups = [ "wheel" ];
   };
 
