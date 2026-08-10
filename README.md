@@ -1,8 +1,10 @@
 ```
 nixos-rebuild build-vm --flake .#client
+mkdir -p run/client
 mv result run/client/vm
 
 nixos-rebuild build-vm --flake .#server
+mkdir -p run/server
 mv result run/server/vm
 ```
 
