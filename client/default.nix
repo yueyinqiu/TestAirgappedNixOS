@@ -20,7 +20,7 @@
       nix derivation show -r path:/home/client/nixpkgs#hello > /home/client/derivation.json
     '')
     (pkgs.writeShellScriptBin "t3-jq" ''
-      cat /home/client/derivation.json | jq -r '.derivations | to_entries[] | select(.value.outputs.out.hash != null) | .key' > /home/client/keys.txt
+      cat /home/client/derivation.json | jq -r '.derivations | to_entries[] | select(.value.outputs.out.hash != null) | "/nix/store/" + .key' > /home/client/keys.txt
     '')
     (pkgs.writeShellScriptBin "t4-realise" ''
       nix-store --realise $(cat /home/client/keys.txt) > /home/client/outputs.txt
