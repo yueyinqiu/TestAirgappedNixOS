@@ -20,8 +20,7 @@ QEMU_OPTS="-netdev socket,id=net0,listen=:1234 -device virtio-net-pci,netdev=net
 
 ```
 cd run/client
-QEMU_OPTS="-netdev socket,id=net0,connect=localhost:1234 -device virtio-net-pci,netdev=net0" ./vm/bin/run-nixos-vm
-# keep it running
+QEMU_OPTS="-netdev socket,id=net0,connect=localhost:1234 -device virtio-net-pci,netdev=net0 -netdev user,id=net1,hostfwd=tcp::41202-:22 -device virtio-net-pci,netdev=net1" ./vm/bin/run-nixos-vm
 ```
 
 3. (Optional) Disable internet connection on the server (login with `server-wheel`, password `1`):
