@@ -20,7 +20,8 @@ QEMU_OPTS="-netdev socket,id=net0,listen=:1234 -device virtio-net-pci,netdev=net
 
 ```
 cd run/client
-QEMU_OPTS="-netdev socket,id=net0,connect=localhost:1234 -device virtio-net-pci,netdev=net0 -netdev user,id=net1,hostfwd=tcp::41202-:22 -device virtio-net-pci,netdev=net1" ./vm/bin/run-nixos-vm
+QEMU_OPTS="-netdev socket,id=net0,connect=localhost:1234 -device virtio-net-pci,netdev=net0" ./vm/bin/run-nixos-vm
+# keep it running
 ```
 
 3. (Optional) Disable internet connection on the server (login with `server-wheel`, password `1`):
@@ -32,11 +33,12 @@ sudo ip link set eth0 down
 4. Run the following command in the client (username: `client`, password: `1`)
 
 ```
-git clone https://github.com/yueyinqiu/TestAirgappedNixOS.git
-cd TestAirgappedNixOS
-git checkout addfixed
+git clone --depth 1 -b addfixed https://github.com/yueyinqiu/TestAirgappedNixOS.git
 
-bash ./client/run.sh    # It will connect the server twice. The password is also `1`.
+bash ./TestAirgappedNixOS/client/get-nixpkgs.sh
+bash ./TestAirgappedNixOS/client/copy-nixpkgs.sh
+bash ./TestAirgappedNixOS/client/get-fod.sh
+bash ./TestAirgappedNixOS/client/copy-fod.sh
 ```
 
 5. Finish installation on 
