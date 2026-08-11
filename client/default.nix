@@ -13,6 +13,7 @@
   ];
   services.openssh.enable = true;
   virtualisation.diskSize = 20480;
+  virtualisation.writableStoreUseTmpfs = false;
 
   users.users.client = {
     isNormalUser = true;
