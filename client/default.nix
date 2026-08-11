@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, nur, ... }:
 
 {
   imports = [ ];
@@ -9,6 +9,7 @@
   environment.systemPackages = [
     pkgs.git
     pkgs.jq
+    nur.yueyinqiu.nix-fod-exporter
   ];
   services.openssh.enable = true;
 

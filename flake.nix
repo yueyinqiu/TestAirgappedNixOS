@@ -8,12 +8,18 @@
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nur = {
+      url = "github:nix-community/NUR";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
     {
       nixpkgs,
       home-manager,
+      nur,
       ...
     }:
     {
@@ -24,6 +30,9 @@
 
       nixosConfigurations.client = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
+        extraSpecialArgs = {
+          nur = nur.legacyPackages."x86_64-linux".repos;
+        };
         modules = [ ./client ];
       };
 
