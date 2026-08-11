@@ -26,6 +26,20 @@
     address = "192.168.100.11";
     prefixLength = 24;
   }];
+  
+  systemd.services.expand-vda1 = {
+    description = "Auto expand vda1 partition and filesystem";
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+    };
+    script = ''
+      ${pkgs.parted}/bin/parted -s /dev/vda resizepart 1 100%
+      ${pkgs.util-linux}/bin/partprobe /dev/vda
+      ${pkgs.e2fsprogs}/bin/resize2fs /dev/vda1
+    '';
+  };
 
   system.stateVersion = "26.05";
 }
