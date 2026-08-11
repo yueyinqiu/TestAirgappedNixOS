@@ -34,6 +34,9 @@
     (pkgs.writeShellScriptBin "t7-import" ''
       ssh -F /dev/null server@192.168.100.10 "nix-store --import < /home/server/fods.closure"
     '')
+    (pkgs.writeShellScriptBin "t8-run" ''
+      ssh -F /dev/null server@192.168.100.10 "nix shell path:/home/server/nixpkgs#hello --offline"
+    '')
   ];
   services.openssh.enable = true;
   virtualisation.diskSize = 20480;
