@@ -1,2 +1,2 @@
-nix derivation show -r nixpkgs#hello > derivation.json
+nix derivation show -r path:nixpkgs#hello > derivation.json
 NixFodExporter from-derivations fod derivation.json
