@@ -10,6 +10,24 @@
     pkgs.git
     pkgs.jq
     nur.yueyinqiu.nix-fod-exporter
+    (pkgs.writeShellScriptBin "t-get-nixpkgs" ''
+      git clone --depth 1 -b nixos-22.05 https://github.com/NixOS/nixpkgs.git
+    '')
+    (pkgs.writeShellScriptBin "t-copy-nixpkgs" ''
+      rsync -avzP -e "ssh -F /dev/null" /home/client/nixpkgs server@192.168.100.10:/home/server/
+    '')
+    (pkgs.writeShellScriptBin "t-show-derivations" ''
+      nix derivation show -r path:/home/client/nixpkgs#hello > /home/client/derivation.json
+    '')
+    (pkgs.writeShellScriptBin "t-jq" ''
+      cat /home/client/derivation.json | jq -r '.derivations | to_entries[] | select(.value.outputs.out.hash != null) | .key' > /home/client/keys.txt
+    '')
+    (pkgs.writeShellScriptBin "t-realise" ''
+      xargs nix-store --realise $(cat /home/client/keys.txt) > outputs.txt
+    '')
+    (pkgs.writeShellScriptBin "t-export" ''
+      nix-store --export $(cat /home/client/outputs.txt)
+    '')
   ];
   services.openssh.enable = true;
   virtualisation.diskSize = 20480;

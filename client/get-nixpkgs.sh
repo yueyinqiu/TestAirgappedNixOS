@@ -1,1 +1,0 @@
-git clone --depth 1 -b nixos-22.05 https://github.com/NixOS/nixpkgs.git
