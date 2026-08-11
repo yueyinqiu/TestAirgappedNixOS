@@ -30,7 +30,7 @@
 
       nixosConfigurations.client = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        extraSpecialArgs = {
+        specialArgs = {
           nur = nur.legacyPackages."x86_64-linux".repos;
         };
         modules = [ ./client ];
