@@ -14,6 +14,7 @@
   services.openssh.enable = true;
   virtualisation.diskSize = 20480;
   virtualisation.vmVariant.virtualisation.mountHostNixStore = false;
+  virtualisation.vmVariant.virtualisation.useBootLoader = true;
 
   users.users.client = {
     isNormalUser = true;
