@@ -35,8 +35,7 @@
       RemainAfterExit = true;
     };
     script = ''
-      ${pkgs.parted}/bin/parted -s /dev/vda resizepart 1 100%
-      ${pkgs.util-linux}/bin/partprobe /dev/vda
+      ${pkgs.cloud-utils}/bin/growpart /dev/vda 1 || true
       ${pkgs.e2fsprogs}/bin/resize2fs /dev/vda1
     '';
   };
