@@ -10,23 +10,29 @@
     pkgs.git
     pkgs.jq
     nur.yueyinqiu.nix-fod-exporter
-    (pkgs.writeShellScriptBin "t-get-nixpkgs" ''
-      git clone --depth 1 -b nixos-22.05 https://github.com/NixOS/nixpkgs.git
+    (pkgs.writeShellScriptBin "t0-get-nixpkgs" ''
+      git clone --depth 1 -b nixos-22.05 https://github.com/NixOS/nixpkgs.git /home/client/nixpkgs
     '')
-    (pkgs.writeShellScriptBin "t-copy-nixpkgs" ''
+    (pkgs.writeShellScriptBin "t1-copy-nixpkgs" ''
       rsync -avzP -e "ssh -F /dev/null" /home/client/nixpkgs server@192.168.100.10:/home/server/
     '')
-    (pkgs.writeShellScriptBin "t-show-derivations" ''
+    (pkgs.writeShellScriptBin "t2-show-derivations" ''
       nix derivation show -r path:/home/client/nixpkgs#hello > /home/client/derivation.json
     '')
-    (pkgs.writeShellScriptBin "t-jq" ''
+    (pkgs.writeShellScriptBin "t3-jq" ''
       cat /home/client/derivation.json | jq -r '.derivations | to_entries[] | select(.value.outputs.out.hash != null) | .key' > /home/client/keys.txt
     '')
-    (pkgs.writeShellScriptBin "t-realise" ''
-      xargs nix-store --realise $(cat /home/client/keys.txt) > outputs.txt
+    (pkgs.writeShellScriptBin "t4-realise" ''
+      nix-store --realise $(cat /home/client/keys.txt) > /home/client/outputs.txt
     '')
-    (pkgs.writeShellScriptBin "t-export" ''
-      nix-store --export $(cat /home/client/outputs.txt)
+    (pkgs.writeShellScriptBin "t5-export" ''
+      nix-store --export $(cat /home/client/outputs.txt) > /home/client/fods.closure
+    '')
+    (pkgs.writeShellScriptBin "t6-copy-closure" ''
+      rsync -avzP -e "ssh -F /dev/null" /home/client/fods.closure server@192.168.100.10:/home/server/
+    '')
+    (pkgs.writeShellScriptBin "t7-import" ''
+      ssh -F /dev/null server@192.168.100.10 "nix-store --import < /home/server/fods.closure"
     '')
   ];
   services.openssh.enable = true;
