@@ -1,0 +1,1 @@
+rsync -avzP -e "ssh -F /dev/null" nixpkgs server@192.168.100.10:/home/server/
