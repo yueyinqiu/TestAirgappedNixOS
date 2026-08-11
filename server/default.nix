@@ -2,6 +2,11 @@
 
 {
   imports = [ ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
+  
   services.openssh.enable = true;
 
   virtualisation.diskSize = 20480;
