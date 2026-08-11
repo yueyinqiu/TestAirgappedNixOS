@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
   imports = [ ];
@@ -7,6 +7,20 @@
   virtualisation.diskSize = 20480;
   virtualisation.vmVariant.virtualisation.mountHostNixStore = false;
   virtualisation.vmVariant.virtualisation.useBootLoader = true;
+
+  systemd.services.expand-vda1 = {
+    description = "Auto expand vda1 partition and filesystem";
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+    };
+    script = ''
+      ${pkgs.parted}/bin/parted -s /dev/vda resizepart 1 100%
+      ${pkgs.util-linux}/bin/partprobe /dev/vda
+      ${pkgs.e2fsprogs}/bin/resize2fs /dev/vda1
+    '';
+  };
 
   users.users.server = {
     isNormalUser = true;
