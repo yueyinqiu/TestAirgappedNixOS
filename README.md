@@ -29,6 +29,7 @@ QEMU_OPTS="-netdev socket,id=net0,connect=localhost:1234 -device virtio-net-pci,
 ```
 git clone https://github.com/yueyinqiu/TestAirgappedNixOS.git
 cd TestAirgappedNixOS
+git checkout addfixed
 
 bash ./client/run.sh    # It will connect the server twice. The password is also `1`.
 ```
