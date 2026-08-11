@@ -33,12 +33,13 @@ sudo ip link set eth0 down
 4. Run the following command in the client (username: `client`, password: `1`)
 
 ```
-git clone --depth 1 -b addfixed https://github.com/yueyinqiu/TestAirgappedNixOS.git
-
-bash ./TestAirgappedNixOS/client/get-nixpkgs.sh
-bash ./TestAirgappedNixOS/client/copy-nixpkgs.sh
-bash ./TestAirgappedNixOS/client/get-fod.sh
-bash ./TestAirgappedNixOS/client/copy-fod.sh
+t0-get-nixpkgs
+t1-copy-nixpkgs
+t2-show-derivations
+t3-jq
+t4-realise
+t5-export
+t6-copy-closure
+t7-import
+t8-run
 ```
-
-5. Finish installation on 
