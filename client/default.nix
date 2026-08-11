@@ -12,6 +12,7 @@
     nur.yueyinqiu.nix-fod-exporter
   ];
   services.openssh.enable = true;
+  virtualisation.diskSize = 20480;
 
   users.users.client = {
     isNormalUser = true;
