@@ -25,16 +25,10 @@
     (pkgs.writeShellScriptBin "t4-realise" ''
       nix-store --realise $(cat /home/client/keys.txt) > /home/client/outputs.txt
     '')
-    (pkgs.writeShellScriptBin "t5-export" ''
-      nix-store --export $(cat /home/client/outputs.txt) > /home/client/fods.closure
+    (pkgs.writeShellScriptBin "t5-copy" ''
+      nix copy --no-recursive --to ssh://server@192.168.100.10 $(cat /home/client/outputs.txt)
     '')
-    (pkgs.writeShellScriptBin "t6-copy-closure" ''
-      rsync -avzP -e "ssh -F /dev/null" /home/client/fods.closure server@192.168.100.10:/home/server/
-    '')
-    (pkgs.writeShellScriptBin "t7-import" ''
-      ssh -F /dev/null server@192.168.100.10 "nix-store --import < /home/server/fods.closure"
-    '')
-    (pkgs.writeShellScriptBin "t8-run" ''
+    (pkgs.writeShellScriptBin "t6-run" ''
       ssh -F /dev/null server@192.168.100.10 "nix shell path:/home/server/nixpkgs#hello --offline"
     '')
   ];
