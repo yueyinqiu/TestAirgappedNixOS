@@ -38,8 +38,6 @@ t1-copy-nixpkgs
 t2-show-derivations
 t3-jq
 t4-realise
-t5-export
-t6-copy-closure
-t7-import
-t8-run
+t5-copy
+t6-run
 ```
